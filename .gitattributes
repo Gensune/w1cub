@@ -1,0 +1,35 @@
+# Auto-detect text files and normalize line endings to LF in the repo
+* text=auto eol=lf
+
+# Ensure JavaScript/TypeScript and related files use LF
+*.js     text eol=lf
+*.jsx    text eol=lf
+*.ts     text eol=lf
+*.tsx    text eol=lf
+*.json   text eol=lf
+*.yml    text eol=lf
+*.yaml   text eol=lf
+*.css    text eol=lf
+*.scss   text eol=lf
+*.html   text eol=lf
+*.md     text eol=lf
+
+# Windows batch scripts should use CRLF
+*.bat    text eol=crlf
+*.cmd    text eol=crlf
+
+# Binary files - don’t diff/modify line endings
+*.png    binary
+*.jpg    binary
+*.jpeg   binary
+*.gif    binary
+*.ico    binary
+*.pdf    binary
+*.zip    binary
+*.gz     binary
+*.tar    binary
+*.tgz    binary
+*.exe    binary
+*.dll    binary
+*.so     binary
+*.dylib  binary

@@ -1,0 +1,48 @@
+# Node dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Logs
+logs/
+*.log
+*.log.*
+pm2.log
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Build output (if you add a frontend later)
+public/assets/
+dist/
+build/
+
+# IDE/editor junk
+.idea/
+.vscode/
+*.swp
+*.swo
+*.swn
+*.bak
+*.tmp
+
+# Coverage / test outputs
+coverage/
+.nyc_output/
+
+# Backups / dumps
+backups/
+dump/
+*.tar
+*.gz
