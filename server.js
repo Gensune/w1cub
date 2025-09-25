@@ -148,6 +148,9 @@ app.get('/', async (_req, res, next) => {
   }
 })
 
+// Serve css folder for JSX
+app.use('/css', express.static(path.join(__dirname, 'css')))
+
 // Serve src folder for JSX
 app.use('/src', express.static(path.join(__dirname, 'src')))
 
