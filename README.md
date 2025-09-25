@@ -20,20 +20,29 @@ Includes API routes, static file serving, environment-based config, and PM2 + Ng
 ## Project Structure
 
 ```
-webserver/
-├── public/              # Static assets (served as-is)
-├── client/              # (Optional) React/Vite frontend build output (not required yet)
-├── routes/              # Express route handlers
-│   ├── api.js           # Example API routes
-│   └── todos.js         # Todo CRUD API
+├── components/          # Reusable modules/helpers (utility code you want to share)
+│  └── genTags.js
+├── css/                 # Stylesheets (served as static assets if referenced)
+│  └── style.css
+├── db/                  # Database connection logic (e.g., mongoose.js)
+│  └── mongoose.js
 ├── models/              # Mongoose schemas & models
-│   └── Todo.js
-├── db/                  # Database connection logic
-│   └── mongoose.js
+│  └── todo.js
+├── public/              # Static assets served by Express (e.g., index.html, images)
+│  └── index.html
+├── routes/              # Express route handlers (API endpoints)
+│  ├── api.js
+│  └── todos.js
+├── src/                 # Source scripts/utilities (non-route code, e.g., helpers)
+│  ├── main.jsx
+│  └── portfolio.jsx
+├── .gitattributes       # Line-ending & diff rules
+├── .gitignore           # Ignore node_modules, .env, logs, builds, etc.
+├── README.md            # This documentation
 ├── config.js            # Centralized config loader (dotenv + validation)
-├── server.js            # Main Express server entry point
-├── .env                 # Environment variables (not committed to Git)
-├── package.json         # Dependencies & scripts
+├── package-lock.json    # Locked dependency graph (generated)
+├── package.json         # App metadata, scripts, dependencies
+└── server.js            # Main Express server entry point
 ```
 
 ---
@@ -53,8 +62,8 @@ webserver/
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/your-username/webserver.git
-cd webserver
+git clone https://github.com/Gensune/w1cub.git
+cd w1cub
 ```
 
 ### 2. Install dependencies
@@ -82,7 +91,6 @@ node server.js
 Visit:
 
 * API: [http://127.0.0.1:3000/api/hello](http://127.0.0.1:3000/api/hello)
-* Health check: [http://127.0.0.1:3000/healthz](http://127.0.0.1:3000/healthz)
 
 ---
 
