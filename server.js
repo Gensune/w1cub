@@ -148,6 +148,9 @@ app.get('/', async (_req, res, next) => {
   }
 })
 
+// Serve src folder for JSX
+app.use('/src', express.static(path.join(__dirname, 'src')))
+
 // Serve static files (frontend build goes in ./public)
 app.use(express.static('./public'))
 
