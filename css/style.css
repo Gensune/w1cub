@@ -1,0 +1,62 @@
+:root {
+--neo-red: #ff3b3b;
+--neo-pink: #ff6ea8;
+--charcoal: #111217;
+--smoke: #d6d6d6;
+}
+
+
+html, body, #root { height: 100%; background: #0b0d10; }
+body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+
+
+.brand-wordmark { font-family: 'Orbitron', 'Inter', sans-serif; letter-spacing: 0.08em; }
+
+
+/* Neon accents */
+.glow-red { text-shadow: 0 0 .4rem var(--neo-red), 0 0 1.2rem rgba(255,59,59,.65); }
+.neon-border { box-shadow: 0 0 0.5rem rgba(255,59,59,.5), 0 0 1.5rem rgba(255,59,59,.35) inset; }
+
+
+/* Hero */
+.kitsune-hero {
+position: relative;
+overflow: hidden;
+background: radial-gradient(60rem 60rem at 80% -10%, rgba(255,59,59,.18), transparent 60%),
+radial-gradient(30rem 30rem at 10% 110%, rgba(255,59,59,.12), transparent 60%),
+linear-gradient(180deg, #0b0d10 0%, #12141a 100%);
+}
+.kitsune-hero::after {
+content: '';
+position: absolute; inset: -30% -30% auto -30%; height: 140%;
+background: conic-gradient(from 220deg, rgba(255,59,59,.18), rgba(255,59,59,0));
+filter: blur(50px); pointer-events: none;
+}
+
+
+.avatar-wrap { position: relative; display: inline-block; }
+.avatar-ring { position:absolute; inset:-12px; border-radius: 20px; border: 2px solid rgba(255,255,255,.08); }
+.avatar-img { border-radius: 18px; display:block; }
+.avatar-glow { position:absolute; inset:-20px; border-radius: 24px; box-shadow: 0 0 60px rgba(255,59,59,.5); pointer-events:none; }
+
+
+/* Section titles */
+.section-title { font-family: 'Orbitron', 'Inter', sans-serif; letter-spacing: .06em; }
+
+
+/* Cards */
+.project-card { transition: transform .2s ease, box-shadow .2s ease; border: 1px solid rgba(255,255,255,.05); }
+.project-card:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(0,0,0,.4), 0 0 24px rgba(255,59,59,.25); }
+
+
+.tag.is-fox { background: rgba(255,59,59,.1); color: #ff9999; border:1px solid rgba(255,59,59,.35); }
+
+
+/* Footer */
+footer { border-top: 1px solid rgba(255,255,255,.06); }
+
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+.hero-title { font-size: 2.2rem; }
+}
