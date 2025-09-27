@@ -110,17 +110,17 @@ const Portfolio = () => {
             <div className='columns is-vcentered'>
               <div className='column is-6'>
                 <h1 className='title hero-title has-text-white is-1 mb-3'>
-                  <span className='glow-red'>Gensune</span>
+                  <span className='glow-red'>John Gonzales</span>
                 </h1>
                 <h2 className='subtitle has-text-grey-light is-5'>
-                  Fox‑inspired engineer & builder. Node.js / React / MongoDB.
+                  Engineer & Builder -- Node.js / React / MongoDB.
                 </h2>
-                <p className='has-text-grey-light'>
-                  The name blends <strong>Kitsune</strong> (狐, Japanese fox
-                  spirits) with <strong>Genkō</strong>, a vulpine spirit from
-                  folklore—reflecting curiosity, adaptability, and a touch of
-                  mischief.
-                </p>
+                <h3 className='has-text-grey-light'>
+                  I am a fullstack developer. I am based in New Mexico.
+                </h3>
+                <h3 className='has-text-grey-light'>
+                  I also work Casino Security Industry.
+                </h3>
                 <div className='buttons mt-5'>
                   <a href='#projects' className='button is-danger is-light'>
                     <span className='icon'>
@@ -133,6 +133,17 @@ const Portfolio = () => {
                       <i className='fa-regular fa-paper-plane' />
                     </span>
                     <span>Contact</span>
+                  </a>
+                  <a
+                    href='./assets/JG-Resume.pdf'
+                    target='_blank'
+                    rel='noreferrer'
+                    className='button is-white'
+                  >
+                    <span className='icon'>
+                      <i className='fa-regular fa-file' />
+                    </span>
+                    <span>Resume</span>
                   </a>
                 </div>
                 <div className='mt-4'>
@@ -157,7 +168,7 @@ const Portfolio = () => {
                   <div className='avatar-ring' />
                   <img
                     className='avatar-img neon-border'
-                    src='./assets/Kitsune.png'
+                    src='./assets/Profile_photo.jpg'
                     alt='Kitsune avatar'
                   />
                   <div className='avatar-glow' />
@@ -171,7 +182,7 @@ const Portfolio = () => {
       {/* ABOUT */}
       <section id='about' className='section'>
         <div className='container'>
-          <h3 className='title section-title has-text-white is-3'>About</h3>
+          <h3 className='title section-title is-3'>About</h3>
           <div className='content has-text-grey-light'>
             <p>
               I create practical web services with a focus on reliability and
@@ -180,8 +191,13 @@ const Portfolio = () => {
               Kitsune myths: versatile, sharp, and a bit arcane.
             </p>
             <p>
-              <em>Gensune</em> is a portmanteau of <strong>Genkō</strong> and{' '}
-              <strong>Kitsune</strong>, inspired by the artwork featured here.
+              My online pseudonym{' '}
+              <strong>
+                <em>Gensune</em>
+              </strong>{' '}
+              blends <strong>Kitsune</strong> (狐, Japanese fox spirits) with{' '}
+              <strong>Genkō</strong>, a vulpine spirit from folklore—reflecting
+              curiosity, adaptability, and a touch of mischief.
             </p>
             <p>
               Outside of coding, I am also a licensed{' '}
@@ -198,13 +214,14 @@ const Portfolio = () => {
       {/* PROJECTS */}
       <section id='projects' className='section'>
         <div className='container'>
-          <h3 className='title section-title has-text-white is-3'>Projects</h3>
+          <h3 className='title section-title is-3'>Projects</h3>
           <div className='columns is-multiline'>
             {PROJECTS.map(p => (
               <div key={p.name} className='column is-4'>
                 <div className='card project-card'>
                   <div className='card-content'>
-                    <p className='title is-4 has-text-white mb-2'>{p.name}</p>
+                    <p className='title is-4 has-text-dark mb-2'>{p.name}</p>
+                    <br />
                     <p className='subtitle is-6 has-text-grey-light'>
                       {p.blurb}
                     </p>
@@ -239,7 +256,7 @@ const Portfolio = () => {
       {/* SKILLS */}
       <section id='skills' className='section'>
         <div className='container'>
-          <h3 className='title section-title has-text-white is-3'>Skills</h3>
+          <h3 className='title section-title is-3'>Skills</h3>
           <div className='columns is-multiline'>
             {[
               'Node.js',
@@ -249,11 +266,10 @@ const Portfolio = () => {
               'Nginx',
               'PM2',
               'Docker',
-              'Git',
-              'Ham Radio'
+              'Git'
             ].map(s => (
               <div key={s} className='column is-narrow'>
-                <span className='tag is-fox is-medium'>{s}</span>
+                <span className='tag is-fox is-large'>{s}</span>
               </div>
             ))}
           </div>
@@ -263,7 +279,7 @@ const Portfolio = () => {
       {/* CONTACT */}
       <section id='contact' className='section'>
         <div className='container'>
-          <h3 className='title section-title has-text-white is-3'>Contact</h3>
+          <h3 className='title section-title is-3'>Contact</h3>
           <div
             className='box'
             style={{
@@ -281,12 +297,11 @@ const Portfolio = () => {
         </div>
       </section>
 
-      <footer className='footer has-background-dark'>
+      {/* FOOTER */}
+      <footer className='footer has-background-white'>
         <div className='content has-text-centered has-text-grey'>
           <p>
-            <span className='brand-wordmark has-text-grey-lighter'>
-              GENSUNE
-            </span>{' '}
+            <span className='brand-wordmark has-text-grey-darker'>GENSUNE</span>{' '}
             · Built with React & Bulma (Bulmaswatch Nuclear). ©{' '}
             {new Date().getFullYear()}.
           </p>
