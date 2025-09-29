@@ -26,28 +26,27 @@ const SOCIALS = [
 
 const PROJECTS = [
   {
-    name: 'fsn.pw',
+    name: 'Url Shortener',
     blurb:
       'A minimal, privacy‑first URL shortener + analytics I run as a personal service.',
     links: [
       // { label: 'Site', href: 'https://fsn.pw' },
-      { label: 'Repo', href: 'https://github.com/Gensune' }
+      { label: 'Repo', href: 'https://github.com/Gensune/url_shortener' }
     ],
     tags: ['Node.js', 'Express', 'MongoDB', 'Nginx']
   },
   {
     name: 'KeoniBot',
-    blurb:
-      'A helpful Discord bot I built for moderation and utilities, tuned for my servers.',
+    blurb: 'A helpful Discord bot I built for moderation and utilities.',
     links: [{ label: 'Repo', href: 'https://github.com/Gensune/keonibot' }],
     tags: ['Discord.js', 'Redis', 'Docker']
   },
   {
     name: 'Portfolio',
     blurb:
-      'This site—React + Bulma (Nuclear). Designed with a Kitsune/Genkō theme.',
+      'This site — React + Bulma (Nuclear). Designed with a Kitsune/Genkō theme.',
     links: [{ label: 'Repo', href: 'https://github.com/Gensune/w1cub' }],
-    tags: ['React', 'Bulma', 'Design']
+    tags: ['React', 'Bulma', 'Design', 'Nginx']
   }
 ]
 

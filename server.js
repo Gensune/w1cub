@@ -6,11 +6,14 @@ import cors from 'cors'
 import helmet from 'helmet'
 import * as crypto from 'node:crypto'
 import { config } from './config.js'
-import { connectDB } from './db/mongoose.js'
+import { DB } from './db/connectionManager.js'
 import { promises as fs } from 'fs'
+import { renderLinkTags, renderScriptTags } from './components/genTags.js'
+
+// Api imports
 import apiRoutes from './routes/api.js'
 import todoRoutes from './routes/todos.js'
-import { renderLinkTags, renderScriptTags } from './components/genTags.js'
+import shortenerRoutes from './routes/shortener.js'
 
 // Fix __dirname (not available in ES modules by default)
 const __filename = fileURLToPath(import.meta.url)
@@ -82,6 +85,7 @@ app.use(
 // API routes
 app.use('/api', apiRoutes)
 app.use('/api/todos', todoRoutes)
+app.use('/api/shortener', shortenerRoutes)
 
 // Inject scripts/links into ./public/index.html
 app.get('/', async (_req, res, next) => {
@@ -148,6 +152,11 @@ app.get('/', async (_req, res, next) => {
   }
 })
 
+// Redirects all created shortened urls to the api
+app.get('/:short', async (_req, res, next) => {
+  res.redirect('/api/shortener/' + _req.params.short)
+})
+
 // Serve css folder for JSX
 app.use('/css', express.static(path.join(__dirname, 'css')))
 
@@ -157,25 +166,56 @@ app.use('/src', express.static(path.join(__dirname, 'src')))
 // Serve static files (frontend build goes in ./public)
 app.use(express.static('./public'))
 
-// Catch-all (SPA frontend routing support)
+//Catch-all (SPA frontend routing support)
 app.use((req, res) => {
   res.redirect('https://w1cub.com/')
 })
 
 // Error handler (last middleware)
-app.use((err, req, res, next) => {
-  console.error('❌ Server Error:', err)
-  res.status(500).json({ error: 'Internal server error' })
+app.use((error, req, res, next) => {
+  if (error.status) {
+    res.status(error.status)
+  } else {
+    res.status(500)
+  }
+  console.error(error)
+  res.json({
+    message: error.message,
+    stack: config.env === 'production' ? '🥞' : error.stack
+  })
 })
 
 // Boot sequence
-connectDB(config.mongoUri)
-  .then(() => {
-    app.listen(config.port, () => {
-      console.log(`✅ Running in ${config.env} mode on port ${config.port}`)
+;(async () => {
+  try {
+    const conns = await DB.connectMany({
+      todo: config.mongoAdm,
+      shortener: config.mongoShort
     })
-  })
-  .catch(err => {
+
+    app.locals.db = DB
+    app.locals.dbs = conns // for direct access
+
+    app.get('/health/db', (_req, res) => res.json({ db: DB.health() }))
+    app.listen(config.port, () => {
+      console.log(`✅ Ronning in ${config.env} mode on port ${config.port}`)
+    })
+
+    // Graceful shutdown
+    const shutdown = async () => {
+      try {
+        await Promise.allSettled([
+          mongoose.connection.close(), // default
+          DB.closeAll() // all named
+        ])
+      } finally {
+        process.exit(0)
+      }
+    }
+    process.on('SIGINT', shutdown)
+    process.on('SIGTERM', shutdown)
+  } catch (err) {
     console.error('Failed to start server:', err)
     process.exit(1)
-  })
+  }
+})()

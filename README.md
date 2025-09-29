@@ -7,13 +7,14 @@ Includes API routes, static file serving, environment-based config, and PM2 + Ng
 
 ## Features
 
-* **Express.js** server with middleware for logging, CORS, JSON, and security
-* **MongoDB** integration via Mongoose
-* **API routes** (example: `GET /api/hello`, `CRUD /api/todos`)
-* **Environment config** using `.env` + central `config.js` loader
-* **PM2** for process management
-* **Nginx** reverse proxy (optional)
-* **SPA-ready fallback** (serves `index.html` for unknown routes)
+- **Express.js** server with middleware for logging, CORS, JSON, and security
+- **MongoDB** integration via Mongoose with multi-database support
+- **API routes** (example: `GET /api/hello`, `CRUD /api/todos`, `POST /api/shortener`)
+- **URL Shortener** feature
+- **Environment config** using `.env` + central `config.js` loader
+- **PM2** for process management
+- **Nginx** reverse proxy (optional)
+- **SPA-ready fallback** (serves `index.html` for unknown routes)
 
 ---
 
@@ -24,15 +25,20 @@ Includes API routes, static file serving, environment-based config, and PM2 + Ng
 │  └── genTags.js
 ├── css/                 # Stylesheets (served as static assets if referenced)
 │  └── style.css
-├── db/                  # Database connection logic (e.g., mongoose.js)
+├── db/                  # Database connection logic
+│  ├── connectionManager.js
 │  └── mongoose.js
 ├── models/              # Mongoose schemas & models
-│  └── todo.js
+│  ├── todo.js
+│  └── uri.js
 ├── public/              # Static assets served by Express (e.g., index.html, images)
 │  └── index.html
 ├── routes/              # Express route handlers (API endpoints)
 │  ├── api.js
+│  ├── shortener.js
 │  └── todos.js
+├── services/            # Business logic
+│  └── links.js
 ├── src/                 # Source scripts/utilities (non-route code, e.g., helpers)
 │  ├── main.jsx
 │  └── portfolio.jsx
@@ -49,11 +55,11 @@ Includes API routes, static file serving, environment-based config, and PM2 + Ng
 
 ## Requirements
 
-* Ubuntu 24.04 (or similar Linux server)
-* Node.js 20+
-* npm 10+
-* MongoDB 8.0+ (running locally or external)
-* Nginx (for reverse proxy & TLS, optional but recommended)
+- Ubuntu 24.04 (or similar Linux server)
+- Node.js 20+
+- npm 10+
+- MongoDB 8.0+ (running locally or external)
+- Nginx (for reverse proxy & TLS, optional but recommended)
 
 ---
 
@@ -79,7 +85,8 @@ Create a `.env` file in the project root:
 ```env
 NODE_ENV=production
 PORT=3000
-MONGODB_URI=mongodb://<user>:<password>@127.0.0.1:27017/myapp?authSource=myapp
+MONGODB_ADM=mongodb://<user>:<password>@127.0.0.1:27017/todo_app?authSource=admin
+MONGODB_SHORT=mongodb://<user>:<password>@127.0.0.1:27017/shortener_app?authSource=admin
 ```
 
 ### 4. Run locally
@@ -90,7 +97,7 @@ node server.js
 
 Visit:
 
-* API: [http://127.0.0.1:3000/api/hello](http://127.0.0.1:3000/api/hello)
+- API: [http://127.0.0.1:3000/api/hello](http://127.0.0.1:3000/api/hello)
 
 ---
 
@@ -99,11 +106,18 @@ Visit:
 Inside the Mongo shell (`mongosh`):
 
 ```js
-use myapp
+use todo_app
 db.createUser({
   user: "app_user",
   pwd:  passwordPrompt(),
-  roles: [{ role: "readWrite", db: "myapp" }]
+  roles: [{ role: "readWrite", db: "todo_app" }]
+})
+
+use shortener_app
+db.createUser({
+  user: "app_user",
+  pwd:  passwordPrompt(),
+  roles: [{ role: "readWrite", db: "shortener_app" }]
 })
 ```
 
@@ -172,19 +186,47 @@ sudo certbot --nginx -d yourdomain.com -d www.yourdomain.com
 
 ### CRUD `/api/todos`
 
-* `GET /api/todos` → list todos
-* `POST /api/todos` → create todo `{ "title": "task" }`
-* `PUT /api/todos/:id` → update todo
-* `DELETE /api/todos/:id` → delete todo
+- `GET /api/todos` → list todos
+- `POST /api/todos` → create todo `{ "title": "task" }`
+- `PUT /api/todos/:id` → update todo
+- `DELETE /api/todos/:id` → delete todo
+
+### POST `/api/shortener`
+
+Create a short URL.
+
+**Request Body:**
+
+```json
+{
+  "url": "https://example.com/very/long/url/to/shorten",
+  "slug": "custom-slug"
+}
+```
+
+**Response:**
+
+```json
+{
+  "slug": "custom-slug",
+  "url": "https://example.com/very/long/url/to/shorten",
+  "_id": "63f8c9b8e4b3f8e4b3f8e4b3"
+}
+```
+
+### GET `/:short`
+
+Redirects to the original URL.
 
 ---
 
 ## Development Notes
 
-* Keep `.env` out of Git (`.gitignore` it!)
-* Logs via PM2: `pm2 logs webserver`
-* Mongo dumps:
+- Keep `.env` out of Git (`.gitignore` it!)
+- Logs via PM2: `pm2 logs webserver`
+- Mongo dumps:
 
   ```bash
-  mongodump --uri="$MONGODB_URI" --out=./backups/$(date +%F)
+  mongodump --uri="$MONGODB_ADM" --out=./backups/$(date +%F)
+  mongodump --uri="$MONGODB_SHORT" --out=./backups/$(date +%F)
   ```

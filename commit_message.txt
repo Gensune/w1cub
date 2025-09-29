@@ -1,0 +1,17 @@
+feat: Implement multi-database support and URL shortener
+
+This commit introduces two major features:
+
+1.  **Multi-database Support:** The application now supports connections to multiple MongoDB databases. A new `ConnectionManager` class has been implemented to manage these connections. The configuration has been updated to support separate URIs for each database.
+
+2.  **URL Shortener:** A complete URL shortener feature has been added. This includes:
+    *   A new `LinkSchema` for storing shortened URLs.
+    *   A new `/api/shortener` route for creating and retrieving shortened URLs.
+    *   A new `links` service to interact with the database.
+
+In addition to these features, this commit also includes the following changes:
+
+*   **Refactored Todo Model:** The `todo` model has been refactored to use the new `ConnectionManager`.
+*   **Content Security Policy:** A Content Security Policy has been added to the application to improve security.
+*   **Dynamic Script and Link Injection:** The `server.js` file now dynamically injects script and link tags into the `index.html` file.
+*   **Dependency Updates:** New dependencies have been added to support the new features.
