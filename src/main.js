@@ -28,24 +28,24 @@ const PROJECTS = [
   {
     name: 'Url Shortener',
     blurb:
-      'A minimal, privacy‑first URL shortener + analytics I run as a personal service.',
+      'A minimal, privacy‑first URL shortener + analytics I run as a personal service. This project has been integrated into this page.',
     links: [
-      // { label: 'Site', href: 'https://fsn.pw' },
-      { label: 'Repo', href: 'https://github.com/Gensune/url_shortener' }
+      { label: 'shortener', href: '#shortener' },
+      { label: 'Repo', href: 'https://github.com/Gensune/url_shortener', target: '_blank', rel: 'noreferrer' }
     ],
     tags: ['Node.js', 'Express', 'MongoDB', 'Nginx']
   },
   {
     name: 'KeoniBot',
     blurb: 'A helpful Discord bot I built for moderation and utilities.',
-    links: [{ label: 'Repo', href: 'https://github.com/Gensune/keonibot' }],
+    links: [{ label: 'Repo', href: 'https://github.com/Gensune/keonibot', target: '_blank', rel: 'noreferrer' }],
     tags: ['Discord.js', 'Redis', 'Docker']
   },
   {
     name: 'Portfolio',
     blurb:
       'This site — React + Bulma (Nuclear). Designed with a Kitsune/Genkō theme.',
-    links: [{ label: 'Repo', href: 'https://github.com/Gensune/w1cub' }],
+    links: [{ label: 'Repo', href: 'https://github.com/Gensune/w1cub', target: '_blank', rel: 'noreferrer' }],
     tags: ['React', 'Bulma', 'Design', 'Nginx']
   }
 ]
@@ -87,6 +87,9 @@ const Portfolio = () => {
               </a>
               <a href='#projects' className='navbar-item'>
                 Projects
+              </a>
+              <a href='#shortener' className='navbar-item'>
+                Shortener
               </a>
               <a href='#skills' className='navbar-item'>
                 Skills
@@ -236,8 +239,8 @@ const Portfolio = () => {
                         <a
                           key={l.label}
                           href={l.href}
-                          target='_blank'
-                          rel='noreferrer'
+                          target={l.target}
+                          rel={l.rel}
                           className='button is-small is-danger is-light'
                         >
                           {l.label}
@@ -251,6 +254,7 @@ const Portfolio = () => {
           </div>
         </div>
       </section>
+      <UrlShortener />
 
       {/* SKILLS */}
       <section id='skills' className='section'>

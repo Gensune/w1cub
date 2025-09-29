@@ -137,6 +137,10 @@ app.get('/', async (_req, res, next) => {
       },
       {
         type: 'text/babel',
+        src: './src/shorturls.js'
+      },
+      {
+        type: 'text/babel',
         src: './src/main.js'
       }
     ]

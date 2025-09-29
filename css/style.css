@@ -45,6 +45,7 @@ filter: blur(50px); pointer-events: none;
 
 
 /* Cards */
+.box { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,.06) }
 .project-card { transition: transform .2s ease, box-shadow .2s ease; border: 1px solid rgba(255,255,255,.05); }
 .project-card:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(0,0,0,.4), 0 0 24px rgba(255,59,59,.25); }
 
@@ -60,6 +61,7 @@ footer { border-top: 1px solid rgba(255,255,255,.06); }
     background-color: #0e0e0e;
     color: var(--neo-red);
 }
+.input.is-danger { border: 1px solid rgba(255,59,59,.35); }
 
 /* Responsive tweaks */
 @media (max-width: 768px) {
